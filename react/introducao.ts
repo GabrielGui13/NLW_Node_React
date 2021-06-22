@@ -21,6 +21,8 @@ showWelcomeMessage({
 
 //yarn create react-app letmeask --template typescript     forma de criar arquivo completo para react em typescript
 //yarn start     para rodar a aplicacao
+//yarn add react-router-dom    instalar modulo de rotas
+//yarn add @types/react-router-dom -D     para habilitar a compatibilidade com ts e intelissense
 
 //na pasta public, remover tudo que nao for "index.html"
 //na pasta src, manter apenas "App.tsx", "index.tsx", "react-app-env.d.ts"

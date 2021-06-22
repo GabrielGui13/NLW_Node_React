@@ -4,6 +4,8 @@ import ReactDOM from 'react-dom';
 import App from './App'; //importa a funcao app com html
 import './services/firebase';
 
+import './styles/global.scss' //css global para qualquer pagina 
+
 ReactDOM.render( //renderizar algo no elemento do html
   <React.StrictMode> 
     <App/> 

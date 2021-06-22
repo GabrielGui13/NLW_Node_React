@@ -1,0 +1,137 @@
+#page-auth {
+    display: flex;
+    align-items: stretch;
+    height: 100vh;
+
+    aside {
+        flex: 7; //uma unidade menor que o main, parecido com as fraction, uma unidade flexivel a mais
+        background-color: #835afd; //cor de fundo
+        color: #fff; //cor do texto
+        display: flex; //display flexivel
+        flex-direction: column; //define como os itens flexíveis são colocados no contêiner flexível
+        justify-content: center; //conteudo ao centro verticalmente
+        padding: 120px 80px; //espaco interno
+    }
+
+    img {
+        max-width: 320px;
+    }
+
+    strong {
+        font: 700 36px 'Poppins', sans-serif;
+        line-height: 42px;
+        margin-top: 16px;
+    }
+
+    p {
+        font-size: 24px;
+        line-height: 32px;
+        margin-top: 16px;
+        color: #f8f8f8;
+    }
+
+    main {
+        flex: 8;
+        padding: 0 32px; //cantinhos nao ficarem grudados com as lateraus
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .main-content {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        max-width: 320px;
+        align-items: stretch; //caber tudo nos 320px
+        text-align: center;
+
+        > img { //pegar apenas a imagem diretamente dentro do .main-content
+            align-self: center; //ficar ao centro e nao esticada
+        }
+
+        h2 {
+            font-size:24px;
+            margin: 64px 0 24px;
+        }
+
+        form {
+            input {
+                height: 50px;
+                border-radius: 8px;
+                padding: 0 16px; 
+                background-color: #FFF;
+            }
+
+            button {
+                margin-top: 16px;
+            }
+
+            button, input {
+                width: 100%;
+            }
+        }
+
+        p {
+            font-size: 14px;
+            color: #737380;
+
+            a {
+                color: #e559f9;
+            }
+        }
+         
+    }
+
+    .create-room {
+        margin-top: 64px;
+        height: 50px;
+        border-radius: 8px;
+        font-weight: 500;
+        background-color: #ea4335;
+        color: #fff;
+
+        display: flex; //alinhar imagem e texto ao centro
+        justify-content: center;
+        align-items: center;
+
+        cursor: pointer;
+        border: 0;
+
+        transition: filter 0.2s;
+
+        &:hover {
+            filter: brightness(0.9);
+        }
+
+        > img {
+            margin-right: 8px;
+        }
+    }
+
+    .separator {
+        font-size: 14px;
+        color: #a8a8b3;
+        margin: 32px 0;
+        display: flex;
+        align-items: center;
+
+        &::before { //& eh um this para antes do texto
+            content: ''; //content sem nada
+            flex: 1; //tamanhos calculados auto
+            height: 1px; //altura da linha
+            background-color: #a8a8b3; //cor da linha
+            margin-right: 16px; //margem da lateral nas linhas
+        }
+
+        &::after { //& eh um this para antes do texto
+            content: ''; //content sem nada
+            flex: 1; //tamanhos calculados auto
+            height: 1px; //altura da linha
+            background-color: #a8a8b3; //cor da linha
+            margin-left: 16px; //margem da lateral nas linhas em relacao ao texto
+        }
+    }
+
+
+}
