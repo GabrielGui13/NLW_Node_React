@@ -1,26 +1,13 @@
-//const express = require('express');
-import express from "express"; //... precisa instalar as tipagens para o autocomplete   =>   yarn add @types/express -D
+import express from "express"; 
+import "reflect-metadata";
+import "./database"
+import {router} from "./routes";
 
 const app = express();
 
-/* 
-  GET    => Buscar uma informacao
-  POST   => Inserir uma informacao
-  PUT    => Alterar uma informacao
-  DELETE => Remover uma informacao
-  PATCH  => Alterar informacao especifica
-*/
-
-app.get('/test', (req, res) => {
-    // Request => Entrando
-    // Response => Saindo
-    return res.send('Ola NLW')
-})
-
-app.post('/test-post', (req, res) => {
-    return res.send('Ola NLW metodo POST') //da errado no browser pois so usa o GET, usar o postman
-})
+app.use(express.json()); //forma de dizer ao express que estamos utilizando json
+app.use(router) //forma de centralizar as rotas (app.get, app.post) em um outro arquivo e nao poluir
 
 app.listen(3000, () => {
-    console.log('Server is running!')
+    console.log('Server is running at http://localhost:3000!')   
 })
