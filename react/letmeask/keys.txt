@@ -1,0 +1,10 @@
+# Firebase 
+REACT_APP_API_KEY = "AIzaSyAaYzm8OhKTGqiMKyXWIAZmKEzXelmdD2k"
+REACT_APP_AUTH_DOMAIN = "letmeask-fe8f8.firebaseapp.com"
+REACT_APP_DATABASE_UTL = "https://letmeask-fe8f8-default-rtdb.firebaseio.com"
+REACT_APP_PROJECT_ID = "letmeask-fe8f8"
+REACT_APP_STORAGE_BUCKET = "letmeask-fe8f8.appspot.com"
+REACT_APP_MESSAGING_SENDER_ID = "432975400921"
+REACT_APP_APP_ID = "1:432975400921:web:500531f4ad0355dc0653c8"
+
+used in .env.local
