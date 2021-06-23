@@ -1,4 +1,6 @@
+import { useContext } from 'react'
 import { Link } from 'react-router-dom'
+import { AuthContext } from '../contexts/AuthContext'
 
 import illustrationImg from '../assets/images/illustration.svg' //forma correta de chamar a path da img com React
 import logoImg from '../assets/images/logo.svg'

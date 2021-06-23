@@ -1,11 +1,17 @@
 import { Router } from "express";
 import { CreateUserController } from "./controllers/CreateUserController";
-
-const createUserController = new CreateUserController();
+import { CreateTagController } from "./controllers/CreateTagController";
+import { ensureAdmin } from "./middlewares/ensureAdmin";
 
 const router = Router();
+const createUserController = new CreateUserController();
+const createTagController = new CreateTagController();
+
 
 router.post('/users', createUserController.handle) //o handle ja recebe o req e o res automaticamente
+
+//router.use(ensureAdmin); se ficasse aqui, todas as middlewares abaixo teriam que ser executadas com o ensureAdmin
+router.post('/tags', ensureAdmin, createTagController.handle) //middleware concentrado
 
 export { router };
 

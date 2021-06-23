@@ -8,7 +8,7 @@ import { v4 as uuid } from "uuid"
 @Entity("users") //define a tabela referenciada
 class User {
     @PrimaryColumn()
-    readonly id: string;
+    readonly id: string; //propriedade de leitura apenas
 
     @Column()
     name: string;
