@@ -27,16 +27,16 @@ export function AuthContextProvider(props: AuthContextProviderType) {
             const { displayName, photoURL, uid } = user
 
             if (!displayName || !photoURL) {
-            throw new Error("Missing information from google account")
+                throw new Error("Missing information from google account")
             }
 
             setUser({
-            id: uid, 
-            name: displayName,
-            avatar: photoURL
+                id: uid, 
+                name: displayName,
+                avatar: photoURL
             })
         }
-        })
+    })
 
         return () => {
         unsubscribe(); //boas praticas com react, descadastra de todos os event listeners de um useEffect, ele continuaria rodando mas daria erro
