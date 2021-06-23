@@ -39,7 +39,7 @@ export function AuthContextProvider(props: AuthContextProviderType) {
     })
 
         return () => {
-        unsubscribe(); //boas praticas com react, descadastra de todos os event listeners de um useEffect, ele continuaria rodando mas daria erro
+            unsubscribe(); //boas praticas com react, descadastra de todos os event listeners de um useEffect, ele continuaria rodando mas daria erro
         }
     }, []) //params(function a fazer, array de monitoramento), colcoaria user dentro e a funcao dispararia sempre que o usur mudasse, para a function disparar 1 vez usa []
 
@@ -49,17 +49,17 @@ export function AuthContextProvider(props: AuthContextProviderType) {
         const result = await auth.signInWithPopup(provider)
 
         if (result.user) {
-        const { displayName, photoURL, uid } = result.user
+            const { displayName, photoURL, uid } = result.user
 
-        if (!displayName || !photoURL) {
-            throw new Error("Missing information from google account")
-        }
+            if (!displayName || !photoURL) {
+                throw new Error("Missing information from google account")
+            }
 
-        setUser({
-            id: uid, 
-            name: displayName,
-            avatar: photoURL
-        })
+            setUser({
+                id: uid, 
+                name: displayName,
+                avatar: photoURL
+            })
         }
     }
   
