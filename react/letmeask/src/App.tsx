@@ -16,7 +16,7 @@ function App() { //deve ter apenas um unico elemento de html global, como uma di
         <Switch>
           <Route path="/" exact component={Home} />
           <Route path="/rooms/new" component={NewRoom} />
-          <Route path="/rooms:id" component={Room} />
+          <Route path="/rooms/:id" component={Room} />
         </Switch>
       </AuthContextProvider>
     </BrowserRouter>
