@@ -10,7 +10,7 @@ interface IUserRequest {
 }
 
 class CreateUserService {
-    async execute({name, email, admin, password}: IUserRequest) {
+    async execute({name, email, admin = false, password}: IUserRequest) {
         const usersRepository = getCustomRepository(UsersRepositories);
         //instancia o "UsersRepositories" importado de repositories, que por sua vez referencia a entidade "User" que referencia a tabela "users" criada pela migration "CreateUser"
 
