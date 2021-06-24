@@ -19,6 +19,9 @@ class User {
     @Column()
     admin: boolean;
 
+    @Column()
+    password: string; //iniciando password
+
     @CreateDateColumn()
     created_at: Date;
 
