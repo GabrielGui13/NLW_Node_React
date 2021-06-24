@@ -8,6 +8,7 @@ import { Room } from './pages/Room';
 
 
 import { AuthContextProvider } from './contexts/AuthContext';
+import { AdminRoom } from './pages/AdminRoom';
 
 function App() { //deve ter apenas um unico elemento de html global, como uma div container ou body, se importar html direto
   return (
@@ -17,6 +18,7 @@ function App() { //deve ter apenas um unico elemento de html global, como uma di
           <Route path="/" exact component={Home} />
           <Route path="/rooms/new" component={NewRoom} />
           <Route path="/rooms/:id" component={Room} />
+          <Route path="/admin/rooms/:id" component={AdminRoom} />
         </Switch>
       </AuthContextProvider>
     </BrowserRouter>
