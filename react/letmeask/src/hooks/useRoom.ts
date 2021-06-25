@@ -1,6 +1,7 @@
 import { useEffect } from "react"
 import { useState } from "react"
 import { database } from "../services/firebase"
+import { useAuth } from "./useAuth"
 
 type FirebaseQuestions = Record<string, {
     author: {
@@ -10,6 +11,9 @@ type FirebaseQuestions = Record<string, {
     content: string;
     isAnswered: boolean;
     isHighlighted: boolean;
+    likes: Record<string, {
+        authorId: string;
+    }>
 }> //Record eh um objeto
 
 type Question = {
@@ -21,9 +25,12 @@ type Question = {
     content: string;
     isAnswered: boolean;
     isHighlighted: boolean;
+    likeCount: number;
+    likeId: string | undefined;
 }
 
 export function useRoom(roomId: string) {
+    const { user } = useAuth();
     const [questions, setQuestions] = useState<Question[]>([]) //tipo do estado eh um array de Question
     const [title, setTitle] = useState('') //tipo do estado eh um array de Question
 
@@ -40,14 +47,20 @@ export function useRoom(roomId: string) {
                     content: value.content,
                     author: value.author,
                     isHighlighted: value.isHighlighted,
-                    isAnswered: value.isAnswered
+                    isAnswered: value.isAnswered,
+                    likeCount: Object.values(value.likes ?? {}).length, //pode vir vazio
+                    likeId: Object.entries(value.likes ?? {}).find(([key, like]) => like.authorId === user?.id)?.[0] //se nao retornar nada, nao tem como acessar [0], por isso o ?, se retornar pega o [0]
                 }
             })
 
             setTitle(databaseRoom.title) //titulo da sala 
             setQuestions(parsedQuestions) //questoes
         });
-    }, [roomId]) //toda vez que o id da sala mudar, useEffect eh executado de novo, sem isso o usuario pode navegar entre salas com os dados carregados
+
+        return () => {
+            roomRef.off('value'); //remove todos os event listeners
+        }
+    }, [roomId, user?.id]) //toda vez que o id da sala mudar, useEffect eh executado de novo, sem isso o usuario pode navegar entre salas com os dados carregados
 
     return { questions, title }
 }

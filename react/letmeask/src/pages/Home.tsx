@@ -36,6 +36,11 @@ export function Home() { //Iniciar os componentes sempre com letra maiuscula
             return;
         }
 
+        if (!roomRef.val().endedAt) { //val() acessa os valores
+            alert('Room unavailable');
+            return;
+        }
+
         history.push(`/rooms/${roomCode}`)
     }
 
