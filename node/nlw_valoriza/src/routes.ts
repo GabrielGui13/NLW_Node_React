@@ -4,21 +4,36 @@ import { CreateTagController } from "./controllers/CreateTagController";
 import { ensureAdmin } from "./middlewares/ensureAdmin";
 import { AuthenticateUserController } from "./controllers/AuthenticateUserController";
 import { CreateComplimentController } from "./controllers/CreateComplimentController";
+import { ensureAuthenticated } from "./middlewares/ensureAuthenticated";
+import { ListUserSendComplimentsController } from "./controllers/ListUserSendComplimentsController";
+import { ListUserReceiveComplimentsController } from "./controllers/ListUserReceiveComplimentsController";
+import { ListTagsController } from "./controllers/ListTagsControllers";
+import { ListUsersController } from "./controllers/ListUsersController"
 
 const router = Router();
 const createUserController = new CreateUserController();
 const createTagController = new CreateTagController();
 const authenticateUserController = new AuthenticateUserController();
 const createComplimentController = new CreateComplimentController();
+const listUserSendComplimentController = new ListUserSendComplimentsController();
+const listUserReceiveComplimentController = new ListUserReceiveComplimentsController();
+const listTagsController = new ListTagsController();
+const listUsersController = new ListUsersController();
 
 router.post('/users', createUserController.handle) //o handle ja recebe o req e o res automaticamente
 
 //router.use(ensureAdmin); se ficasse aqui, todas as middlewares abaixo teriam que ser executadas com o ensureAdmin
-router.post('/tags', ensureAdmin, createTagController.handle) //middleware concentrado
+router.post('/tags', ensureAuthenticated, ensureAdmin, createTagController.handle) //middleware concentrado, ensureAuthentication passa antes pois primeiro deve autenticar e depois checar admin
+router.get('/tags', ensureAuthenticated, listTagsController.handle)
 
 router.post("/login", authenticateUserController.handle)
 
-router.post('/compliments', createComplimentController.handle)
+router.post('/compliments', ensureAuthenticated ,createComplimentController.handle)
+
+router.get('/users/compliments/send', ensureAuthenticated, listUserSendComplimentController.handle)
+router.get('/users/compliments/receive', ensureAuthenticated, listUserReceiveComplimentController.handle)
+
+router.get('/users', ensureAdmin, listUsersController.handle)
 
 export { router };
 
