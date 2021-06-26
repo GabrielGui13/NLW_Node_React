@@ -1,6 +1,8 @@
 import { useParams } from 'react-router'; //resgatar parametros passados na rota
 import logoImg from '../assets/images/logo.svg';
 import deleteImg from '../assets/images/delete.svg'; 
+import checkImg from '../assets/images/check.svg'
+import answerImg from '../assets/images/answer.svg'
 import { Button } from '../components/Button';
 import { RoomCode } from '../components/RoomCode';
 import '../styles/room.scss'
@@ -18,6 +20,7 @@ export function AdminRoom() {
     const history = useHistory();
     const params = useParams<RoomParams>(); //tipagem
     const roomId = params.id;
+    const pageLink = window.location.href.replace('admin/', '');
 
     const { title, questions } = useRoom(roomId); 
 
@@ -35,6 +38,34 @@ export function AdminRoom() {
         }
     }
 
+    async function handleCheckQuestionAsAnswered(questionId: string) {
+        const questionRef = database.ref(`rooms/${roomId}/questions/${questionId}`)
+
+        if(window.confirm('Deseja marcar a pergunta como respondida?')) {
+            await questionRef.update({
+                isAnswered: true
+            });
+        }
+    }
+
+    async function handleHighlightQuestion(questionId: string) {
+        const questionRef = database.ref(`rooms/${roomId}/questions/${questionId}`)
+        let isHighlightedValue = false
+
+        questionRef.once('value', qs => {
+            if (!qs.val().isHighlighted) {
+                isHighlightedValue = true
+            }
+            else {
+                isHighlightedValue = false
+            }
+        })
+
+        await questionRef.update({
+            isHighlighted: isHighlightedValue
+        });
+    }
+
     return (
         <div id="page-room">
             <header>
@@ -42,7 +73,7 @@ export function AdminRoom() {
                     {/* {user ? <Link to="/rooms/new"><img src={logoImg} alt="" /></Link> : <Link to="/"><img src={logoImg} alt="" /></Link>} */}
                     <img src={logoImg} alt="" />
                     <div>
-                        <RoomCode code={roomId}/>
+                        <RoomCode code={roomId} link={pageLink}/>
                         <Button isOutlined onClick={handleEndRoom}> Encerrar sala </Button>
                     </div>
                 </div>
@@ -61,13 +92,32 @@ export function AdminRoom() {
                                 key={question.id} //nao pode ter coisas repetidas, é assim que o react diferencia as perguntas
                                 content={question.content}
                                 author={question.author}
+                                isAnswered={question.isAnswered}
+                                isHighlighted={question.isHighlighted}
                             >   
-                                <button
-                                    type="button"
-                                    onClick={() => handleDeleteQuestion(question.id)}
-                                >
-                                    <img src={deleteImg} alt="Remover pergunta" />
-                                </button>
+                                {!question.isAnswered && (
+                                    <>
+                                        <button
+                                            type="button"
+                                            onClick={() => handleCheckQuestionAsAnswered(question.id)}
+                                        >
+                                            <img src={checkImg} alt="Marcar pergunta como respondida" title="Responder pergunta"/>
+                                        </button>
+                                        <button
+                                            type="button"
+                                            onClick={() => handleHighlightQuestion(question.id)}
+                                        >
+                                            <img src={answerImg} alt="Destacar pergunta" title="Destacar pergunta"/>
+                                        </button>
+                                    </>
+                                    )}
+
+                                    <button
+                                        type="button"
+                                        onClick={() => handleDeleteQuestion(question.id)}
+                                    >
+                                        <img src={deleteImg} alt="Remover pergunta" title="Remover pergunta"/>
+                                    </button>
                             </Question>
                         )
                     })}

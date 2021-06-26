@@ -3,9 +3,30 @@
     border-radius: 8px;
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
     padding: 24px;
+
+    animation-name: toDisplay;
+    animation-duration: 1s;
+
+    @keyframes toDisplay {
+        0% {opacity: 0;}
+        100% {opacity: 1;}
+    }
     
     & + .question { //aplica um margin-top a partir da segunda, referencia ela mesmo
         margin-top: 8px;
+    }
+    
+    &.highlighted {
+        background-color: #f4f0ff;
+        border: 1px solid #835afd;
+        
+        footer .user-info span {
+            color: #29292E;
+        }
+    }
+
+    &.answered { //fica embaixo pois eh prioridade
+        background-color: #DBDCDD;
     }
 
     p {
@@ -33,6 +54,11 @@
                 color: #737380;
                 font-size: 14px;
             }
+        }
+
+        > div {
+            display: flex;
+            gap: 16px;
         }
 
         button {

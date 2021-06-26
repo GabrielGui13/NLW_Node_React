@@ -30,7 +30,7 @@ export function NewRoom() { //Iniciar os componentes semppre com letra maiuscula
             authorId: user?.id
         });
 
-        history.push(`/rooms/${firebaseRoom.key}`) //retorna o registro o unico de cada sala criada
+        history.push(`/admin/rooms/${firebaseRoom.key}`) //retorna o registro o unico de cada sala criada
     }
 
     return (
